@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Qnet Company Home Page</title>
+</head>
+
+<body>
+
+    <h2>Qnet company home page</h2>
+    <hr>
+    <p>
+        Welcome to Qnet company home page...
+    </p>
+
+    <hr>
+        <!-- display username -->
+    <p>
+        User:<span sec:authentication="principal.username"></span>
+        <br><br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </p>
+
+
+    <!-- add a link to point to another urls-->
+    <div sec:authorize="hasRole('EMPLOYEE')">
+
+        <form action="#" th:action="@{/system/employeesList}" method="GET">
+
+            <input type="submit" value="Employees List" />
+        </form>
+
+    </div>
+
+    <div sec:authorize="hasRole('ADMIN')">
+
+        <form action="#" th:action="@{/system/list}" method="GET">
+
+            <input type="submit" value="Database Configuration" />
+        </form>
+
+    </div>
+
+    <div sec:authorize="hasRole('MANAGER')">
+
+        <form action="#" th:action="@{/system/managersView}" method="GET">
+
+            <input type="submit" value="Employees List" />
+        </form>
+
+    </div>
+
+
+
+
+    <!-- Add link to point to /system/list
+    <p>
+        <a th:href="@{/system/list}">Qnet Employees List</a>
+    </p>
+-->
+
+    <hr>
+    <!-- Add a logout button-->
+    <form action="#" th:action="@{/logout}" method="POST">
+
+        <input type="submit" value="Logout" />
+    </form>
+
+
+</body>
+</html>
